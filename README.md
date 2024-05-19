@@ -6,7 +6,7 @@ This assignment extends the EX1 assignment by adding operators to a graph repres
 ## Operators
 
 ### Arithmetic Operators
-- `+`: Creates a new graph with the size of the larger of two given graphs. Each cell of the new graph is the sum of the corresponding cells of the input graphs: `g3[i][j] = g1[i][j] + g2[i][j]`.
+- `+`: Creates a new graph with the size of the two given graphs. Each cell of the new graph is the sum of the corresponding cells of the input graphs: `g3[i][j] = g1[i][j] + g2[i][j]`.
 - `+=`: Adds the values of the corresponding cells of another graph to the current graph: `g1[i][j] += g2[i][j]`.
 - Unary `+`: Returns a new graph that is a copy of the current graph.
 - `-`: Creates a new graph with the size of the larger of two given graphs. Each cell of the new graph is the difference of the corresponding cells of the input graphs: `g3[i][j] = g1[i][j] - g2[i][j]`.
