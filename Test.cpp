@@ -1,4 +1,3 @@
-
 #include <vector>
 #include "doctest.h"
 #include "Algorithms.hpp"
@@ -10,22 +9,22 @@ using namespace std;
 
 TEST_CASE("matrix sizes")
 {
-ariel::Graph g1;
-ariel::Graph g2;
+    ariel::Graph g1;
+    ariel::Graph g2;
 // Test case 1
-vector<vector<int>> m1 = {
-        {0, 1, 0},
-        {1, 0, 1},
-        {0, 1, 0}};
-g1.loadGraph(m1);
+    vector<vector<int>> m1 = {
+            {0, 1, 0},
+            {1, 0, 1},
+            {0, 1, 0}};
+    g1.loadGraph(m1);
 
-vector<vector<int>> m2 = {
-        {0, 1, 1, 0, 0},
-        {1, 0, 1, 0, 0},
-        {1, 1, 0, 1, 0},
-        {0, 0, 1, 0, 0},
-        {0, 0, 0, 0, 0}};
-g2.loadGraph(m2);
+    vector<vector<int>> m2 = {
+            {0, 1, 1, 0, 0},
+            {1, 0, 1, 0, 0},
+            {1, 1, 0, 1, 0},
+            {0, 0, 1, 0, 0},
+            {0, 0, 0, 0, 0}};
+    g2.loadGraph(m2);
     CHECK(g1.sizeCheck(m2,m1) == false);
 
 // Test case 2
@@ -88,6 +87,7 @@ TEST_CASE("operator +=") {
 
     ariel::Graph g1;
     ariel::Graph g2;
+    ariel::Graph g12;
     vector<vector<int>> m1 = {
             {0, 1, 0},
             {1, 0, 1},
@@ -101,11 +101,20 @@ TEST_CASE("operator +=") {
     g2.loadGraph(m2);
 
     g1 += g2;
-    CHECK(g1 == (g1 + g2));
+
+    vector<vector<int>> m5 = {
+            {0, 2, 1},
+            {2, 0, 2},
+            {1, 2, 0}};
+    g12.loadGraph(m5);
+
+
+    CHECK(g1 == g12);
 
 
     ariel::Graph g3;
     ariel::Graph g4;
+    ariel::Graph g34;
     vector<vector<int>> m3 = {
             {0, 2, -1},
             {1, 0, 3},
@@ -118,12 +127,18 @@ TEST_CASE("operator +=") {
             {1, 2, 0}};
     g4.loadGraph(m4);
 
+    vector<vector<int>> m34 = {
+            {0, 3, 1},
+            {0, 0, 1},
+            {3, -1, 0}};
+    g34.loadGraph(m34);
+
     g3 += g4;
-    CHECK(g3 == (g3 + g4));
+    CHECK(g3 == g34);
 }
 
 TEST_CASE("Unary Plus Operator") {
-    // Create a graph
+// Create a graph
     ariel::Graph g1;
     std::vector<std::vector<int>> m1 = {
             {1, 2, 3},
@@ -132,10 +147,10 @@ TEST_CASE("Unary Plus Operator") {
     };
     g1.loadGraph(m1);
 
-    // Apply the unary plus operator
+// Apply the unary plus operator
     ariel::Graph g2 = +g1;
 
-    // Check if g2 is equal to g1
+// Check if g2 is equal to g1
     CHECK(g1 == g2);
 }
 
@@ -181,6 +196,7 @@ TEST_CASE("operator -=") {
 
     ariel::Graph g1;
     ariel::Graph g2;
+    ariel::Graph g12;
     vector<vector<int>> m1 = {
             {0, 1, 0},
             {1, 0, 1},
@@ -193,12 +209,19 @@ TEST_CASE("operator -=") {
             {1, 1, 0}};
     g2.loadGraph(m2);
 
+    vector<vector<int>> m12 = {
+            {0, 0, -1},
+            {0, 0, 0},
+            {-1, 0, 0}};
+    g12.loadGraph(m12);
+
     g1 -= g2;
-    CHECK(g1 == (g1 - g2));
+    CHECK(g1 == g12);
 
 
     ariel::Graph g3;
     ariel::Graph g4;
+    ariel::Graph g34;
     vector<vector<int>> m3 = {
             {0, 2, -1},
             {1, 0, 3},
@@ -211,13 +234,19 @@ TEST_CASE("operator -=") {
             {1, 2, 0}};
     g4.loadGraph(m4);
 
+    vector<vector<int>> m34 = {
+            {0, 1, -3},
+            {2, 0, 5},
+            {1, -5, 0}};
+    g34.loadGraph(m34);
+
     g3 -= g4;
-    CHECK(g3 == (g3 - g4));
+    CHECK(g3 == g34);
 
 }
 
 TEST_CASE("Unary Minus Operator") {
-    // Create a graph
+// Create a graph
     ariel::Graph g1;
     std::vector<std::vector<int>> m1 = {
             {1, 2, 3},
@@ -226,10 +255,10 @@ TEST_CASE("Unary Minus Operator") {
     };
     g1.loadGraph(m1);
 
-    // Apply the unary minus operator
+// Apply the unary minus operator
     ariel::Graph g2 = -g1;
 
-    // Check if g2 has all its elements negated
+// Check if g2 has all its elements negated
     for (size_t i = 0; i < g2.getNeigborMatrix().size(); ++i) {
         for (size_t j = 0; j < g2.getNeigborMatrix()[i].size(); ++j) {
             CHECK(g2.getNeigborMatrix()[i][j] == -g1.getNeigborMatrix()[i][j]);
@@ -238,7 +267,7 @@ TEST_CASE("Unary Minus Operator") {
 }
 
 TEST_CASE("operator !=") {
-    // Test case 1: Two equal graphs
+// Test case 1: Two equal graphs
     ariel::Graph g1;
     ariel::Graph g2;
 
@@ -256,7 +285,7 @@ TEST_CASE("operator !=") {
 
     CHECK_FALSE(g1 != g2);
 
-    // Test case 2: Two different graphs
+// Test case 2: Two different graphs
     ariel::Graph g3;
     ariel::Graph g4;
 
@@ -276,7 +305,7 @@ TEST_CASE("operator !=") {
 }
 
 TEST_CASE("contains") {
-    // Test case 1: Graph2 contains Graph1
+// Test case 1: Graph2 contains Graph1
     ariel::Graph g1;
     ariel::Graph g2;
 
@@ -287,20 +316,20 @@ TEST_CASE("contains") {
     g1.loadGraph(m1);
 
     vector<vector<int>> m2 = {
-            {0, 1, 0},
-            {1, 1, 1},
+            {0, 0, 0},
+            {1, 0, 1},
             {0, 1, 0}};
     g2.loadGraph(m2);
 
     CHECK(g2.contains(g1, g2));
 
-    // Test case 2: Graph2 does not contain Graph1
+// Test case 2: Graph2 does not contain Graph1
     ariel::Graph g3;
     ariel::Graph g4;
 
     vector<vector<int>> m3 = {
-            {0, 1, 0},
-            {1, 0, 1},
+            {0, 0, 0},
+            {0, 0, 1},
             {0, 1, 0}};
     g3.loadGraph(m3);
 
@@ -314,7 +343,7 @@ TEST_CASE("contains") {
 }
 
 TEST_CASE("getNumEdges") {
-    // Test case 1: Graph with no edges
+// Test case 1: Graph with no edges
     ariel::Graph g1;
 
     vector<vector<int>> m1 = {
@@ -325,7 +354,7 @@ TEST_CASE("getNumEdges") {
 
     CHECK(g1.getNumEdges(g1) == 0);
 
-    // Test case 2: Graph with some edges
+// Test case 2: Graph with some edges
     ariel::Graph g2;
 
     vector<vector<int>> m2 = {
@@ -338,7 +367,7 @@ TEST_CASE("getNumEdges") {
 }
 
 TEST_CASE("operator++") {
-    // Test case 1: Increment all edges in the graph
+// Test case 1: Increment all edges in the graph
     ariel::Graph g1;
 
     vector<vector<int>> m1 = {
@@ -350,15 +379,15 @@ TEST_CASE("operator++") {
     ++g1;
 
     vector<vector<int>> expectedResult = {
-            {1, 2, 1},
-            {2, 1, 2},
-            {1, 2, 1}};
+            {0, 2, 0},
+            {2, 0, 2},
+            {0, 2, 0}};
 
     CHECK(g1.getNeigborMatrix() == expectedResult);
 }
 
 TEST_CASE("operator--") {
-    // Test case 1: Decrement all edges in the graph
+// Test case 1: Decrement all edges in the graph
     ariel::Graph g1;
 
     vector<vector<int>> m1 = {
@@ -370,15 +399,15 @@ TEST_CASE("operator--") {
     --g1;
 
     vector<vector<int>> expectedResult = {
-            {-1, 0, -1},
-            {0, -1, 0},
-            {-1, 0, -1}};
+            {0, 0, 0},
+            {0, 0, 0},
+            {0, 0, 0}};
 
     CHECK(g1.getNeigborMatrix() == expectedResult);
 }
 
 TEST_CASE("operator* (int scalar)") {
-    // Test case 1: Multiply all edges by a scalar
+// Test case 1: Multiply all edges by a scalar
     ariel::Graph g1;
 
     vector<vector<int>> m1 = {
@@ -398,7 +427,7 @@ TEST_CASE("operator* (int scalar)") {
 }
 
 TEST_CASE("operator* (Graph multiplication)") {
-    // Test case 1: Multiply two graphs
+// Test case 1: Multiply two graphs
     ariel::Graph g1;
     ariel::Graph g2;
 
