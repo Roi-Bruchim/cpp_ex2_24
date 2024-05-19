@@ -1,4 +1,4 @@
-# EX2: Graph Operations
+# EX2: Graph Operators
 
 ## Overview
 This assignment extends the EX1 assignment by adding operators to a graph represented by an adjacency matrix. Each operator ensures that the given graphs satisfy the requirements of the operator. Each operator and helper function has several tests to check their correctness. There is a demo that you can run by executing the command `./demo` to see the operators and how they affect the algorithms we implemented in the last assignment.
